@@ -1,4 +1,4 @@
-import { StyleObject, ThemeManager } from "./manager";
+import { StyleObject } from "./manager";
 import { ThemeType, ColorTypes, ColorOpacities } from "./types";
 
 

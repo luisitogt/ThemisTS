@@ -1,4 +1,4 @@
-import {  ColorOpacities, ColorTypes, FontAttributes, ThemeInterface, ThemeType, ThemeVarsSimplified } from "./types";
+import { ThemeInterface } from "./types";
 import { defaultTheme } from "./default-theme";
 import { ThemeManagerUtils } from "./utils";
 
@@ -20,15 +20,15 @@ export interface ThemeManagerInterface {
     overriders?: Record<string,SingleLayerObject>
 }
 
-type SingleLayerObjectValue = {
+export type SingleLayerObjectValue = {
     routeSet : Set<string>,
     value: string,
     varName : string,
     overriderRoute?: string[]
 }
 
-type SingleLayerObject = Record<string,SingleLayerObjectValue>
-type SingleLayerSearch = Record<string,{ contains: boolean, route: string[]}>
+export type SingleLayerObject = Record<string,SingleLayerObjectValue>
+export type SingleLayerSearch = Record<string,{ contains: boolean, route: string[]}>
 
 export class ThemeManager {
 
@@ -90,7 +90,7 @@ export class ThemeManager {
         });
         // OVERRIDERS
         (theme.theme.themeVars as any)["overriders"] = {}
-        Object.entries(theme.theme.themeCreator.overriders || {}).forEach(([ovCategory,overridersObject]) => {
+        Object.entries({...defaultTheme.themeCreator.overriders,...theme.theme.themeCreator.overriders}|| {}).forEach(([ovCategory,overridersObject]) => {
             let overriderClasses : {oType : string,className: string }[] = Object.keys(overridersObject || {} ).map((type) => {
                 return {
                     oType : type,

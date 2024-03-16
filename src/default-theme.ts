@@ -1,4 +1,4 @@
-import { BaseColors, BaseFonts,BaseOverriders, ColorsObject, FontAttributes, ThemeCreatorSimplified, ThemeInterface,   } from "./types";
+import { ThemeInterface } from "./types";
 
 
 export let defaultTheme : ThemeInterface<{}> = {

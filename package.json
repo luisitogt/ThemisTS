@@ -1,8 +1,12 @@
 {
-  "name": "themists",
-  "version": "1.0.0",
+  "name": "themis-ts-framework",
+  "version": "1.0.4",
   "description": "Theming and Styling Framework for TypeScript",
-  "main": "index.js",
+  "main": "./dist/bundle.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
   "scripts": {
     "build": "npx webpack"
   },

@@ -1,4 +1,3 @@
-import { ThemeManager } from "./manager";
 import { ThemeInterface } from "./types";
 
 export let themeExample: ThemeInterface<{

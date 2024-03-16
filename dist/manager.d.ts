@@ -10,13 +10,17 @@ export interface ThemeManagerInterface {
     singleLayerTheme?: SingleLayerObject;
     overriders?: Record<string, SingleLayerObject>;
 }
-type SingleLayerObjectValue = {
+export type SingleLayerObjectValue = {
     routeSet: Set<string>;
     value: string;
     varName: string;
     overriderRoute?: string[];
 };
-type SingleLayerObject = Record<string, SingleLayerObjectValue>;
+export type SingleLayerObject = Record<string, SingleLayerObjectValue>;
+export type SingleLayerSearch = Record<string, {
+    contains: boolean;
+    route: string[];
+}>;
 export declare class ThemeManager {
     static shared: ThemeManager;
     separator: string;
@@ -33,4 +37,3 @@ export declare class ThemeManager {
     private setSingleLayerThemeAndOverriders;
     private getVariablesFrom;
 }
-export {};
