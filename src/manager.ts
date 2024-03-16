@@ -112,15 +112,19 @@ export class ThemeManager {
                     found.forEach((el) => el.classList.remove(ovName))
                 })
             })
-            ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,"switch"], (element: HTMLElement = document.body) => {
+            ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,"switch"], (base:boolean = false,element: HTMLElement = document.body) => {
                 let classes = overriderClassesArrray
-                this.switchOveriderOnElement(classes)
+                if (base) {classes = [...classes,""]}
+                this.switchOveriderOnElement(classes,element)
             })
             overriderClasses.forEach((ov) => {
                 ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,ov.oType,"className"],ov.className)
                 ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,ov.oType,"apply"], (element: HTMLElement = document.body) => {
                     let classes = overriderClassesArrray
-                    this.loadOveriderOnElement(ov.className,classes)
+                    this.loadOveriderOnElement(ov.className,classes,element)
+                })
+                ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,ov.oType,"remove"], (element: HTMLElement = document.body) => {
+                    element.classList.remove(ov.className)
                 })
             })  
         })
@@ -144,12 +148,9 @@ export class ThemeManager {
             }
         }
         let indexOfClass = overriderTypes.indexOf(foundClass)
-        if (indexOfClass <  0) {
-            element.classList.add(overriderTypes[0])
-            return 
-        }
         let newOverrider = overriderTypes[(indexOfClass + 1) % overriderTypes.length]
-        overriderTypes.forEach((c) => element.classList.remove(c))
+        overriderTypes.forEach((c) => {c != "" ? element.classList.remove(c) : console.log()})
+        if (newOverrider == "") {return}
         element.classList.add(newOverrider)
     }
 
@@ -157,6 +158,8 @@ export class ThemeManager {
         overriderTypes.forEach((c) => element.classList.remove(c))
         element.classList.add(overriderClass)
     }
+
+
 
     private nameReplacer = {
         size : "font-size",

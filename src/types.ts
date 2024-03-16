@@ -112,7 +112,7 @@ export type MergeSubOverriders<
             Merge<ExtraOverriderValues,ExtraOverridersIsOptional,BaseOverriderValues,BaseOverridersIsOptional,Value> 
             )
             
-export type removeOverridersFunction =  {removeOverriders: (element? : HTMLElement) => void, switch : (element? : HTMLElement) => void }
+export type removeOverridersFunction =  {removeOverriders: (element? : HTMLElement) => void, switch : (base?: boolean,element? : HTMLElement) => void }
 
 export type MergeOverridersWithFunction<Overriders> = {[P in keyof Overriders]? : Overriders[P] & removeOverridersFunction}
 
@@ -202,6 +202,7 @@ export type ThemeVarsSimplified<
                         {
                             className: "",
                             apply : (onElement?: HTMLElement) => void
+                            remove : (onElement?: HTMLElement) => void
                         },
                         EO,
                         "N",
@@ -232,14 +233,8 @@ Fonts  extends string = (Data["fonts"] extends string ? Data["fonts"] : string),
 UserGenerated extends Record<string,string> = UserGeneratedObject<Data>,
 Overriders extends Record<string,string> = (Data["overriders"] extends Record<string,string>  ? Data["overriders"] : Record<string,string> ),
 > {
-
-    themeCreator : ThemeCreatorSimplified<
-                                    Colors | ColorTypes,
-                                    Fonts,
-                                    UserGenerated,
-                                    Overriders>
+    themeCreator : ThemeCreatorSimplified<Colors | ColorTypes, Fonts,UserGenerated,Overriders>
     themeVars?: ThemeVarsSimplified<Colors,Fonts,UserGenerated,Overriders>
-
     sheetSelector?: string;
 }
 

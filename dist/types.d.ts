@@ -59,7 +59,7 @@ export type OverridersObject<Value, ExtraOverriders extends Record<string, strin
 export type MergeSubOverriders<Value, ExtraOverriderValues extends string, ExtraOverridersIsOptional extends OptionalFlag, BaseOverriderValues extends string, BaseOverridersIsOptional extends OptionalFlag> = (Merge<ExtraOverriderValues, ExtraOverridersIsOptional, BaseOverriderValues, BaseOverridersIsOptional, Value>);
 export type removeOverridersFunction = {
     removeOverriders: (element?: HTMLElement) => void;
-    switch: (element?: HTMLElement) => void;
+    switch: (base?: boolean, element?: HTMLElement) => void;
 };
 export type MergeOverridersWithFunction<Overriders> = {
     [P in keyof Overriders]?: Overriders[P] & removeOverridersFunction;
@@ -69,6 +69,7 @@ export type ThemeCreatorSimplifiedOverriders<EC extends string, EF extends strin
 export type ThemeVarsSimplified<EC extends string, EF extends string, UG extends Record<string, string>, EO extends Record<string, string>> = (ThemeCreator<ColorsObject<ColorTypes, EC, "N", "N">, FontsObject<FontAttributes<string>, EF, "N", "N">, CompleteUserGeneratedObjectOptional<UG, "N">, MergeOverridersWithFunction<OverridersObject<{
     className: "";
     apply: (onElement?: HTMLElement) => void;
+    remove: (onElement?: HTMLElement) => void;
 }, EO, "N", "N">>>);
 export type BaseInterfaceType = Record<string, string> | {
     colors: string;

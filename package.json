@@ -1,6 +1,6 @@
 {
   "name": "themis-ts-framework",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Theming and Styling Framework for TypeScript",
   "main": "./dist/bundle.js",
   "types": "./dist/index.d.ts",
