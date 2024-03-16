@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+
+# Source files
+src/
+
+# Development scripts
+scripts/
+
+# TypeScript source maps
+*.map
+
+# Configuration files
+*.yml
+tsconfig.json
+.eslintrc
+.prettierrc
+
+# Documentation source
+docs/
+*.md
+
+# Test files
+test/
+__tests__/
+*.spec.js
+*.test.js

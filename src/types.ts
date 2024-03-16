@@ -1,3 +1,4 @@
+import { OverriderClassType } from "./manager";
 
 export type ThemeType = "dark" | "light" | "neutral"
 export type BaseFonts  = "body" | "callout" | "caption1" | "caption2" | "footNote" | "headLine" | "subHead" | "largeTitle" | "title1" | "title2" | "title3";
@@ -112,13 +113,15 @@ export type MergeSubOverriders<
             Merge<ExtraOverriderValues,ExtraOverridersIsOptional,BaseOverriderValues,BaseOverridersIsOptional,Value> 
             )
             
-export type removeOverridersFunction =  {removeOverriders: (element? : HTMLElement) => void, switch : (base?: boolean,element? : HTMLElement) => void }
+export type removeOverridersFunction =  {
+                                        removeOverriders: (element? : HTMLElement) => void,
+                                        switch : (base?: boolean,element? : HTMLElement) => void, 
+                                        getCurrent : (element? : HTMLElement) => OverriderClassType | undefined }
 
 export type MergeOverridersWithFunction<Overriders> = {[P in keyof Overriders]? : Overriders[P] & removeOverridersFunction}
 
 
 // THEME CREATOR Overriders:
-
 
 export type ThemeCreatorSimplified<
             EC extends string | ColorTypes,

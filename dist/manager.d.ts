@@ -21,6 +21,10 @@ export type SingleLayerSearch = Record<string, {
     contains: boolean;
     route: string[];
 }>;
+export type OverriderClassType = {
+    oType: string;
+    className: string;
+};
 export declare class ThemeManager {
     static shared: ThemeManager;
     separator: string;

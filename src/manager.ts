@@ -30,6 +30,8 @@ export type SingleLayerObjectValue = {
 export type SingleLayerObject = Record<string,SingleLayerObjectValue>
 export type SingleLayerSearch = Record<string,{ contains: boolean, route: string[]}>
 
+export type OverriderClassType = {oType : string,className: string}
+
 export class ThemeManager {
 
     static shared : ThemeManager = new ThemeManager();
@@ -91,7 +93,7 @@ export class ThemeManager {
         // OVERRIDERS
         (theme.theme.themeVars as any)["overriders"] = {}
         Object.entries({...defaultTheme.themeCreator.overriders,...theme.theme.themeCreator.overriders}|| {}).forEach(([ovCategory,overridersObject]) => {
-            let overriderClasses : {oType : string,className: string }[] = Object.keys(overridersObject || {} ).map((type) => {
+            let overriderClasses : OverriderClassType[] = Object.keys(overridersObject || {} ).map((type) => {
                 return {
                     oType : type,
                     className : `${ovCategory}${this.separator}${type}`
@@ -100,6 +102,8 @@ export class ThemeManager {
         
 
             let overriderClassesArrray = overriderClasses.map((a) => a.className);
+            let overriderClassestest = overriderClasses.map((a) => a.className);
+
 
             ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,"removeOverriders"], (element?: HTMLElement) => {
                 let classes = overriderClassesArrray
@@ -112,11 +116,24 @@ export class ThemeManager {
                     found.forEach((el) => el.classList.remove(ovName))
                 })
             })
+            
             ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,"switch"], (base:boolean = false,element: HTMLElement = document.body) => {
                 let classes = overriderClassesArrray
                 if (base) {classes = [...classes,""]}
                 this.switchOveriderOnElement(classes,element)
             })
+
+            ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,"getCurrent"], (element: HTMLElement = document.body) => {
+                let mClasses : OverriderClassType[] = overriderClasses
+                for (var x = 0; x <= mClasses.length; x++) {
+                    let current = mClasses[x]
+                    if (element.classList.contains(current.className)) {
+                        return current
+                    }
+                }
+                return undefined
+            })
+            
             overriderClasses.forEach((ov) => {
                 ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,ov.oType,"className"],ov.className)
                 ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,ov.oType,"apply"], (element: HTMLElement = document.body) => {
