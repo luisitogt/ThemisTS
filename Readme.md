@@ -1,6 +1,14 @@
 
 ## ThemisTS
 
+
+## Installation
+
+```
+$ npm i themis-ts-framework
+```
+
+
 ### Theming and Styling Framework for TypeScript
 
 This is a powerful and flexible framework for managing themes and styles in TypeScript applications. Leveraging the full capabilities of TypeScript's advanced type system, it provides a robust and type-safe solution for defining, composing, and applying styles across your application.
@@ -92,13 +100,13 @@ import React from 'react';
 import { myTheme } from './theme';
 
 const MyComponent = () => {
-  const primaryColor = myTheme.themeVars?.colors.primary.normal._100;
-  const bodyFont = `${myTheme.themeVars?.fonts.body.size} ${myTheme.themeVars?.fonts.body.weight}`;
-  const spacing = myTheme.themeVars?.utils.spacing;
+  const primaryColor = myTheme.vars?.colors.primary.normal._100;
+  const bodyFont = `${myTheme.vars?.fonts.body.size} ${myTheme.vars?.fonts.body.weight}`;
+  const spacing = myTheme.vars?.utils.spacing;
 
   return (
     <div style={{ color: primaryColor, fontFamily: bodyFont, padding: spacing }}>
-      <h1 className={`${myTheme.themeVars?.fonts.heading.class}`}>
+      <h1 className={`${myTheme.vars?.fonts.heading.class}`}>
         Welcome to My Component
       </h1>
       <p>This component uses the theme variables for colors, fonts, and spacing.</p>
@@ -118,20 +126,20 @@ export default MyComponent;
 
 ```jsx 
 // Apply the light color overrider to the body to change the colors of the web application.
-myTheme.themeVars?.overriders.colorOverriders.light.apply();
+myTheme.vars?.overriders.colorOverriders.light.apply();
 
 // You can set the element where you apply the overrider, by default it is the document.body
 ....apply(document.body);
 
 // Apply the compact layout overrider to change the spacing on the specific component
-myTheme.themeVars?.overriders.componentOverriders.compact.apply();
+myTheme.vars?.overriders.componentOverriders.compact.apply();
 
 // Or change it to spacious in case you need it.
-myTheme.themeVars?.overriders.componentOverriders.spacious.apply();
+myTheme.vars?.overriders.componentOverriders.spacious.apply();
 
 ```
 
-When we then apply the `compact` layout overrider using `myTheme.themeVars?.overriders.componentOverriders.compact.apply();`.
+When we then apply the `compact` layout overrider using `myTheme.vars?.overriders.componentOverriders.compact.apply();`.
 
 The `compact` layout overrider changes the `spacing` utility value to `8px`, which will affect the padding and margins of elements that use the spacing var changing the `MyComponent` padding and margings. This showcases how you can selectively apply layout overriders to specific parts of your application while keeping the rest of the app unaffected.
 

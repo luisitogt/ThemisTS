@@ -30,7 +30,7 @@ export declare class ThemeManager {
     separator: string;
     populateTheme(theme: ThemeInterface<{}>): void;
     private loadThemeOnStyleTag;
-    private populateThemeVars;
+    private populatevars;
     switchOveriderOnElement(overriderTypes: string[], element?: HTMLElement): void;
     loadOveriderOnElement(overriderClass: string, overriderTypes: string[], element?: HTMLElement): void;
     private nameReplacer;

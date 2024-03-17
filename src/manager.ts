@@ -55,7 +55,7 @@ export class ThemeManager {
         this.loadThemeOnStyleTag(themeInterface)
 
         // Populate theme vars with overrider and font classes and vars.
-        this.populateThemeVars(themeInterface)
+        this.populatevars(themeInterface)
     }
 
   
@@ -84,14 +84,14 @@ export class ThemeManager {
     }
 
 
-    private populateThemeVars(theme: ThemeManagerInterface) {
+    private populatevars(theme: ThemeManagerInterface) {
         // VARS
-        theme.theme.themeVars = {} as typeof theme.theme.themeVars
+        theme.theme.vars = {} as typeof theme.theme.vars
         Object.values(theme.singleLayerTheme || {}).forEach((value) => {
-            ThemeManagerUtils.populateObjectValue(theme.theme.themeVars || {},Array.from(value.routeSet),`var(${value.varName})`)
+            ThemeManagerUtils.populateObjectValue(theme.theme.vars || {},Array.from(value.routeSet),`var(${value.varName})`)
         });
         // OVERRIDERS
-        (theme.theme.themeVars as any)["overriders"] = {}
+        (theme.theme.vars as any)["overriders"] = {}
         Object.entries({...defaultTheme.themeCreator.overriders,...theme.theme.themeCreator.overriders}|| {}).forEach(([ovCategory,overridersObject]) => {
             let overriderClasses : OverriderClassType[] = Object.keys(overridersObject || {} ).map((type) => {
                 return {
@@ -105,7 +105,7 @@ export class ThemeManager {
             let overriderClassestest = overriderClasses.map((a) => a.className);
 
 
-            ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,"removeOverriders"], (element?: HTMLElement) => {
+            ThemeManagerUtils.populateObjectValue(theme.theme.vars?.overriders || {},[ovCategory,"removeOverriders"], (element?: HTMLElement) => {
                 let classes = overriderClassesArrray
                 if (element!= undefined) {
                     classes.forEach((test) => element.classList.remove(test))
@@ -117,13 +117,13 @@ export class ThemeManager {
                 })
             })
             
-            ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,"switch"], (base:boolean = false,element: HTMLElement = document.body) => {
+            ThemeManagerUtils.populateObjectValue(theme.theme.vars?.overriders || {},[ovCategory,"switch"], (base:boolean = false,element: HTMLElement = document.body) => {
                 let classes = overriderClassesArrray
                 if (base) {classes = [...classes,""]}
                 this.switchOveriderOnElement(classes,element)
             })
 
-            ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,"getCurrent"], (element: HTMLElement = document.body) => {
+            ThemeManagerUtils.populateObjectValue(theme.theme.vars?.overriders || {},[ovCategory,"getCurrent"], (element: HTMLElement = document.body) => {
                 let mClasses : OverriderClassType[] = overriderClasses
                 for (var x = 0; x <= mClasses.length; x++) {
                     let current = mClasses[x]
@@ -135,18 +135,18 @@ export class ThemeManager {
             })
             
             overriderClasses.forEach((ov) => {
-                ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,ov.oType,"className"],ov.className)
-                ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,ov.oType,"apply"], (element: HTMLElement = document.body) => {
+                ThemeManagerUtils.populateObjectValue(theme.theme.vars?.overriders || {},[ovCategory,ov.oType,"className"],ov.className)
+                ThemeManagerUtils.populateObjectValue(theme.theme.vars?.overriders || {},[ovCategory,ov.oType,"apply"], (element: HTMLElement = document.body) => {
                     let classes = overriderClassesArrray
                     this.loadOveriderOnElement(ov.className,classes,element)
                 })
-                ThemeManagerUtils.populateObjectValue(theme.theme.themeVars?.overriders || {},[ovCategory,ov.oType,"remove"], (element: HTMLElement = document.body) => {
+                ThemeManagerUtils.populateObjectValue(theme.theme.vars?.overriders || {},[ovCategory,ov.oType,"remove"], (element: HTMLElement = document.body) => {
                     element.classList.remove(ov.className)
                 })
             })  
         })
         var storeFonts: ((fontName:string,className:string) => void) | undefined = (fontName,className) => {
-            (theme.theme.themeVars?.fonts as any)[fontName]["class"] = className
+            (theme.theme.vars?.fonts as any)[fontName]["class"] = className
         }
         this.getFontCSSClassesFromFonts(defaultTheme.themeCreator.fonts,storeFonts)
         this.getFontCSSClassesFromFonts(theme.theme.themeCreator.fonts,storeFonts)

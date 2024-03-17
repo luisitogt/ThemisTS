@@ -180,7 +180,7 @@ export type ThemeCreatorSimplifiedOverriders<
 
 // THEME VARS
 
-export type ThemeVarsSimplified<
+export type varsSimplified<
             EC extends string,
             EF extends string,
             UG extends Record<string,string>,
@@ -237,7 +237,7 @@ UserGenerated extends Record<string,string> = UserGeneratedObject<Data>,
 Overriders extends Record<string,string> = (Data["overriders"] extends Record<string,string>  ? Data["overriders"] : Record<string,string> ),
 > {
     themeCreator : ThemeCreatorSimplified<Colors | ColorTypes, Fonts,UserGenerated,Overriders>
-    themeVars?: ThemeVarsSimplified<Colors,Fonts,UserGenerated,Overriders>
+    vars?: varsSimplified<Colors,Fonts,UserGenerated,Overriders>
     sheetSelector?: string;
 }
 

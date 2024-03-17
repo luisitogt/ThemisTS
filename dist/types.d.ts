@@ -68,7 +68,7 @@ export type MergeOverridersWithFunction<Overriders> = {
 };
 export type ThemeCreatorSimplified<EC extends string | ColorTypes, EF extends string, UG extends Record<string, string>, EO extends Record<string, string>> = (ThemeCreator<ColorsObject<EC extends string ? string : ColorTypes, EC extends string ? EC : never, "N", "Y">, FontsObject<FontAttributes, EF, "N", "Y">, CompleteUserGeneratedObjectOptional<UG, "N">, ThemeCreatorSimplifiedOverriders<EC extends string ? EC : never, EF, UG, EO>>);
 export type ThemeCreatorSimplifiedOverriders<EC extends string, EF extends string, UG extends Record<string, string>, EO extends Record<string, string>> = (OverridersObject<TurnToOptional<ThemeCreator<ColorsObject<string, EC, "Y", "Y">, FontsObject<FontAttributes, EF, "Y", "Y">, CompleteUserGeneratedObjectOptional<UG, "Y">>>, EO, "Y", "Y">);
-export type ThemeVarsSimplified<EC extends string, EF extends string, UG extends Record<string, string>, EO extends Record<string, string>> = (ThemeCreator<ColorsObject<ColorTypes, EC, "N", "N">, FontsObject<FontAttributes<string>, EF, "N", "N">, CompleteUserGeneratedObjectOptional<UG, "N">, MergeOverridersWithFunction<OverridersObject<{
+export type varsSimplified<EC extends string, EF extends string, UG extends Record<string, string>, EO extends Record<string, string>> = (ThemeCreator<ColorsObject<ColorTypes, EC, "N", "N">, FontsObject<FontAttributes<string>, EF, "N", "N">, CompleteUserGeneratedObjectOptional<UG, "N">, MergeOverridersWithFunction<OverridersObject<{
     className: "";
     apply: (onElement?: HTMLElement) => void;
     remove: (onElement?: HTMLElement) => void;
@@ -97,6 +97,6 @@ export type FontClassesObject<ExtraFonts extends string, IsOptional extends Opti
 });
 export interface ThemeInterface<Data extends BaseInterfaceType, Colors extends string = (Data["colors"] extends string ? Data["colors"] : string), Fonts extends string = (Data["fonts"] extends string ? Data["fonts"] : string), UserGenerated extends Record<string, string> = UserGeneratedObject<Data>, Overriders extends Record<string, string> = (Data["overriders"] extends Record<string, string> ? Data["overriders"] : Record<string, string>)> {
     themeCreator: ThemeCreatorSimplified<Colors | ColorTypes, Fonts, UserGenerated, Overriders>;
-    themeVars?: ThemeVarsSimplified<Colors, Fonts, UserGenerated, Overriders>;
+    vars?: varsSimplified<Colors, Fonts, UserGenerated, Overriders>;
     sheetSelector?: string;
 }
